@@ -16,10 +16,13 @@
 |
 */
 
-namespace \hannesvdvreken\OAuth;
+namespace hannesvdvreken\OAuth;
 
 use \OAuth\ServiceFactory;
 use \OAuth\Common\Consumer\Credentials;
+
+use \Config;
+use \URL;
 
 class OAuth {
 
@@ -36,7 +39,8 @@ class OAuth {
 		$storage_name = Config::get('oauth.Storage');
 		$storage_name = $storage_name ?: 'Session'; // default
 
-		$storage = new \OAuth\Common\Storage\$storage_name();
+		$cn = "\\OAuth\Common\\Storage\\$storage_name";
+		$storage = new $cn();
 
 		// create credentials object
 		$credentials = new Credentials(
