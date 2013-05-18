@@ -4,7 +4,11 @@
 
 Just follow the steps below and you will be able to get a service class object with this one rule:
 
-> $fb = OAuth::provider('Facebook');
+```php
+$fb = OAuth::consumer('Facebook');
+```
+
+Optionally, add a second parameter with the URL which the service needs to redirect to.
 
 ## How to integrate
 
@@ -12,7 +16,9 @@ Just follow the steps below and you will be able to get a service class object w
 
 Add an alias to the bottom of config/app.php
 
+```php
 "OAuth" => "\hannesvdvreken\OAuth\OAuth",
+```
 
 ### Credentials
 
