@@ -1,4 +1,4 @@
-<?php
+<?php namespace hannesvdvreken\OAuth;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +16,7 @@
 |
 */
 
-namespace hannesvdvreken\OAuth;
+use Illuminate\Support\ServiceProvider;
 
 use \OAuth\ServiceFactory;
 use \OAuth\Common\Consumer\Credentials;
@@ -30,14 +30,13 @@ class OAuth {
 	 * @param  string $service
 	 * @return \OAuth\Common\Service\AbstractService
 	 */
-	public static function consumer( $service, $url = null ){
+	public function consumer( $service, $url = null ){
 
 		// create a factory. but remember: this is not java.
 		$service_factory = new ServiceFactory();
 
 		// get storage
-		$storage_name = Config::get('oauth.Storage');
-		$storage_name = $storage_name ?: 'Session'; // default
+		$storage_name = Config::get('oauth.Storage') ?: 'Session'; // default
 
 		$cn = "\\OAuth\Common\\Storage\\$storage_name";
 		$storage = new $cn();
