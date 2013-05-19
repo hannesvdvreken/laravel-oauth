@@ -33,13 +33,15 @@ Add your credentials to app/config/oauth.php
 ```php
 return array(
 
-   'Storage' => 'Session',
+    'storage' => 'Session',
 
-	'Facebook' => array(
-		'client_id'     => '',
-		'client_secret' => '',
-		'scope' => array(),
-	),
+    'consumers' => array(
+        'Facebook' => array(
+            'client_id'     => '',
+            'client_secret' => '',
+            'scope' => array(),
+        ),
+    ),
 );
 ```
 
