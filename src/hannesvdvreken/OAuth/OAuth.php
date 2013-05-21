@@ -49,7 +49,7 @@ class OAuth {
         );
 
         // get scope (default to empty array)
-        $scope = Config::get("oauth.$service.scope") ?: array();
+        $scope = Config::get("oauth.consumers.$service.scope") ?: array();
 
         // return the service consumer object
         return $service_factory->createService($service, $credentials, $storage, $scope);
