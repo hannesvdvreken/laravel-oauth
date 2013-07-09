@@ -2,13 +2,14 @@
 
 ## Usage
 
-Just follow the steps below and you will be able to get a [service class object](https://github.com/Lusitanian/PHPoAuthLib/tree/master/src/OAuth/OAuth2/Service) with this one rule:
+Just follow the steps below and you will be able to get an object of the [service](https://github.com/Lusitanian/PHPoAuthLib/tree/master/src/OAuth/OAuth2/Service) class with one rule:
 
 ```php
 $fb = OAuth::consumer('Facebook');
+$fb = OAuth::consumer('Facebook', 'https://example.com/callback');
 ```
 
-Optionally, add a second parameter with the URL which the service needs to redirect to.
+Optionally, add a second parameter with the URL which the service needs to redirect to. Default, it uses the `URL::current()`, provided by Laravel (L4).
 
 ## How to integrate
 
@@ -46,3 +47,7 @@ return array(
 ```
 
 The `Storage` attribute is optional and defaults to `Session`. Other [options](https://github.com/Lusitanian/PHPoAuthLib/tree/master/src/OAuth/Common/Storage).
+
+### License
+
+Thanks for your support, please share under the [dbad](http://www.dbad-license.org).
