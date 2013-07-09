@@ -50,4 +50,4 @@ The `Storage` attribute is optional and defaults to `Session`. Other [options](h
 
 ### License
 
-Thanks for your support, please share under the [dbad](http://www.dbad-license.org).
+Thanks for your support. License: [agplv3](http://www.gnu.org/licenses/agpl.html).
