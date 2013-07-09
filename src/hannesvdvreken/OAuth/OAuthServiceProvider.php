@@ -11,7 +11,11 @@ class OAuthServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        $this->app['oauth'] = new OAuth;
+        $this->app->bind('oauth', function() {
+
+        	return new OAuth();
+        	
+        });
     }
 
 }
