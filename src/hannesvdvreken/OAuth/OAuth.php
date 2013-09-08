@@ -36,7 +36,7 @@ class OAuth {
         $service_factory = new ServiceFactory();
 
         // get storage
-        $storage_name = Config::get('oauth.Storage') ?: 'Session'; // default
+        $storage_name = Config::get('oauth.Storage', 'Session'); // use session as default
 
         $cn = "\\OAuth\Common\\Storage\\$storage_name";
         $storage = new $cn();
@@ -49,7 +49,7 @@ class OAuth {
         );
 
         // get scope (default to empty array)
-        $scope = Config::get("oauth.consumers.$service.scope") ?: array();
+        $scope = Config::get("oauth.consumers.$service.scope", array());
 
         // return the service consumer object
         return $service_factory->createService($service, $credentials, $storage, $scope);
