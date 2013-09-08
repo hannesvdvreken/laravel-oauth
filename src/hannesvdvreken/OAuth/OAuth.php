@@ -36,7 +36,7 @@ class OAuth {
         $service_factory = new ServiceFactory();
 
         // get storage
-        $storage_name = Config::get('oauth.Storage', 'Session'); // use session as default
+        $storage_name = Config::get('oauth.storage', 'Session'); // use session as default
 
         $cn = "\\OAuth\Common\\Storage\\$storage_name";
         $storage = new $cn();
