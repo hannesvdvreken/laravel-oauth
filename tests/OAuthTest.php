@@ -29,6 +29,7 @@ class OAuthTest extends PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
+        // clear cached instances
         Facade::clearResolvedInstance('app');
         Facade::clearResolvedInstance('config');
         Facade::clearResolvedInstance('url');
@@ -37,6 +38,7 @@ class OAuthTest extends PHPUnit_Framework_TestCase
 
     public function testConfig()
     {
+        // assign application container
         Facade::setFacadeApplication($this->app);
 
         // create oauth object
@@ -53,6 +55,7 @@ class OAuthTest extends PHPUnit_Framework_TestCase
         $url_mock->shouldReceive('current')->andReturn($this->url);
         $this->app['url'] = $url_mock;
 
+        // assign application container
         Facade::setFacadeApplication($this->app);
 
         // create oauth object
