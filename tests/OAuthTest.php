@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author     Hannes Van De Vreken <vandevreken.hannes@gmail.com>
+ * @copyright  Copyright (c) 2013 The authors
+ * @license    http://www.opensource.org/licenses/mit-license.html MIT License
+ */
 
 require_once __DIR__.'/../vendor/autoload.php';
 require_once('tests/app.php');
@@ -10,7 +15,6 @@ use Illuminate\support\Facades\Facade;
 class OAuthTest extends PHPUnit_Framework_TestCase
 {
     private $app,
-            $storage = 'Memory',
             $url = 'http://example.org/redirect',
             $service = 'Facebook',
             $client_id = 'client_id',
@@ -73,9 +77,6 @@ class OAuthTest extends PHPUnit_Framework_TestCase
 
         $config = m::mock('Illuminate\\Config\\Repository');
         $config->shouldReceive('get')
-               ->with('oauth.storage', 'Session')
-               ->andReturn($this->storage);
-        $config->shouldReceive('get')
                ->with("oauth.consumers.$service.client_id")
                ->andReturn($this->client_id);
         $config->shouldReceive('get')
@@ -95,7 +96,6 @@ class OAuthTest extends PHPUnit_Framework_TestCase
     protected function mock_app()
     {
         // arrange
-        $storage = $this->storage;
         $credentials = array(
             'consumerId'     => $this->client_id,
             'consumerSecret' => $this->client_secret,
@@ -109,17 +109,17 @@ class OAuthTest extends PHPUnit_Framework_TestCase
         $this->credentials_mock->shouldReceive('getConsumerSecret')->andReturn($this->client_secret);
 
         // storage mock
-        $this->storage_mock = m::mock("\\OAuth\\Common\\Storage\\$storage");
+        $this->storage_mock = m::mock('\\OAuth\\Common\\Storage\\TokenStorageInterface');
 
         // app mock
         $app_mock = m::mock('\\Illuminate\\Container\\Container');
         $app_mock->shouldReceive('make')
-                 ->with("\\OAuth\Common\\Storage\\$storage")
-                 ->andReturn($this->storage_mock);
-
-        $app_mock->shouldReceive('make')
                  ->with('\\OAuth\\Common\\Consumer\\Credentials', $credentials)
                  ->andReturn($this->credentials_mock);
+
+        $app_mock->shouldReceive('make')
+                 ->with('\\OAuth\\Common\\Storage\\LaravelSession')
+                 ->andReturn($this->storage_mock);
 
         return $app_mock;
     }

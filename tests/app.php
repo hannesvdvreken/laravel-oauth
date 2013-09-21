@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author     Hannes Van De Vreken <vandevreken.hannes@gmail.com>
+ * @copyright  Copyright (c) 2013 The authors
+ * @license    http://www.opensource.org/licenses/mit-license.html MIT License
+ */
 
 // fake App class
 class FakeApp extends ArrayObject 

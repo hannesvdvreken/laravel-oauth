@@ -35,8 +35,6 @@ Add your credentials to app/config/oauth.php
 ```php
 return array(
 
-    'storage' => 'Session',
-
     'consumers' => array(
         'Facebook' => array(
             'client_id'     => '',
@@ -46,8 +44,6 @@ return array(
     ),
 );
 ```
-
-The `Storage` attribute is optional and defaults to `Session`. Other options: `Memory`, `Redis` or `SymfonySession`. More info [here](https://github.com/Lusitanian/PHPoAuthLib/tree/master/src/OAuth/Common/Storage).
 
 ## License
 License: MIT

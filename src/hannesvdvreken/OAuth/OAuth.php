@@ -1,20 +1,11 @@
-<?php namespace hannesvdvreken\OAuth;
+<?php
+/**
+ * @author     Hannes Van De Vreken <vandevreken.hannes@gmail.com>
+ * @copyright  Copyright (c) 2013 The authors
+ * @license    http://www.opensource.org/licenses/mit-license.html MIT License
+ */
 
-/*
-|--------------------------------------------------------------------------
-| How to use
-|--------------------------------------------------------------------------
-| eg:
-|
-| $fb = OAuth::consumer('Facebook'); 
-|
-| returns a configured consumer object
-| class details found here:
-|     https://github.com/Lusitanian/PHPoAuthLib/blob/master/src/OAuth/OAuth2/Service/Facebook.php
-|
-| credentials and scope are loaded from config/oauth.php
-|
-*/
+namespace hannesvdvreken\OAuth;
 
 use \OAuth\ServiceFactory;
 
@@ -42,20 +33,6 @@ class OAuth
      */
     public function consumer($service, $url = null) 
     {
-        // get storage
-        $storage_name = Config::get('oauth.storage', 'Session'); // use session as default
-
-        $cn = "\\OAuth\Common\\Storage\\$storage_name";
-        if ($storage_name == 'Redis')
-        {
-            $redis = Redis::connection();
-            $storage = new $cn($redis);
-        }
-        else
-        {
-            $storage = App::make($cn);
-        }
-
         // create credentials object
         // the only "new"-keyword in this repository.
         $credentials = App::make('\\OAuth\\Common\\Consumer\\Credentials', array(
@@ -63,6 +40,8 @@ class OAuth
             'consumerSecret' => Config::get("oauth.consumers.$service.client_secret"),
             'callbackUrl' => $url ?: URL::current()
         ));
+
+        $storage = App::make('\\OAuth\\Common\\Storage\\LaravelSession');
 
         // get scope (default to empty array)
         $scope = Config::get("oauth.consumers.$service.scope", array());

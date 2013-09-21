@@ -1,7 +1,13 @@
-<?php namespace hannesvdvreken\OAuth;
+<?php 
+/**
+ * @author     Hannes Van De Vreken <vandevreken.hannes@gmail.com>
+ * @copyright  Copyright (c) 2013 The authors
+ * @license    http://www.opensource.org/licenses/mit-license.html MIT License
+ */
+
+namespace hannesvdvreken\OAuth;
 
 use Illuminate\Support\ServiceProvider;
-use \App;
 
 class OAuthServiceProvider extends ServiceProvider {
 
@@ -27,11 +33,5 @@ class OAuthServiceProvider extends ServiceProvider {
                 $parameters['callbackUrl']
             );
         });
-
-        // allow for autoresolving a Symfony Session
-        $interface = '\\Symfony\\Component\\HttpFoundation\\Session\\SessionInterface';
-        $class = '\\Symfony\\Component\\HttpFoundation\\Session\\Session';
-
-        $this->app->bind($interface, $class);
     }
 }
