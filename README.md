@@ -1,4 +1,5 @@
 # OAuth wrapper for Laravel 4
+[![Build Status](https://travis-ci.org/hannesvdvreken/laravel-oauth.png?branch=master)](https://travis-ci.org/hannesvdvreken/laravel-oauth)
 
 ## Usage
 

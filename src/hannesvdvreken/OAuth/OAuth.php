@@ -16,43 +16,58 @@
 |
 */
 
-use Illuminate\Support\ServiceProvider;
-
 use \OAuth\ServiceFactory;
-use \OAuth\Common\Consumer\Credentials;
 
 use \Config;
 use \URL;
+use \App;
 
-class OAuth {
+class OAuth 
+{
+    private $factory;
+
+    /**
+     * Constructor - creates a new instance
+     *
+     * @param \OAuth\ServiceFactory $factory
+     */
+    public function __construct(ServiceFactory $factory)
+    {
+        $this->factory = $factory;
+    }
 
     /**
      * @param  string $service
      * @return \OAuth\Common\Service\AbstractService
      */
-    public function consumer( $service, $url = null ) {
-
-        // create a factory. but remember: this is not java.
-        $service_factory = new ServiceFactory();
-
+    public function consumer($service, $url = null) 
+    {
         // get storage
         $storage_name = Config::get('oauth.storage', 'Session'); // use session as default
 
         $cn = "\\OAuth\Common\\Storage\\$storage_name";
-        $storage = new $cn();
+        if ($storage_name == 'Redis')
+        {
+            $redis = Redis::connection();
+            $storage = new $cn($redis);
+        }
+        else
+        {
+            $storage = App::make($cn);
+        }
 
         // create credentials object
-        $credentials = new Credentials(
+        // the only "new"-keyword in this repository.
+        $credentials = App::make('\\OAuth\\Common\\Consumer\\Credentials', array(
             Config::get("oauth.consumers.$service.client_id"),
             Config::get("oauth.consumers.$service.client_secret"),
             $url ?: URL::current()
-        );
+        ));
 
         // get scope (default to empty array)
         $scope = Config::get("oauth.consumers.$service.scope", array());
 
         // return the service consumer object
-        return $service_factory->createService($service, $credentials, $storage, $scope);
-
+        return $this->factory->createService($service, $credentials, $storage, $scope);
     }
 }

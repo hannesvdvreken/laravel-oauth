@@ -1,11 +1,11 @@
 {
     "name": "hannesvdvreken/oauth",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "type": "library",
     "description": "Laravel OAuth IoC wrapper Library",
-    "keywords": ["OAuth", "Lusitanian", "laravel", "php"],
+    "keywords": ["OAuth", "Lusitanian", "laravel", "php", "wrapper", "config"],
     "homepage": "https://github.com/hannesvdvreken/laravel-oauth",
-    "license": "AGPLv3.O",
+    "license": "MIT",
     "authors": [
         {
             "name": "Hannes Van De Vreken",
@@ -17,7 +17,9 @@
         "lusitanian/oauth": "*"
     },
     "require-dev": {
-        "illuminate/support": "dev-master"
+        "illuminate/support": "4.0.*",
+        "predis/predis": "0.8.*",
+        "mockery/mockery": "0.8.*"
     },
 
     "require-all": true,

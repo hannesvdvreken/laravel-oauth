@@ -11,11 +11,16 @@ class OAuthServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        $this->app->bind('oauth', function() {
-
-        	return new OAuth();
-        	
+        // bind object for OAuth Facade
+        $this->app->bind('oauth', function()
+        {
+            $this->app->make('OAuth');
         });
-    }
 
+        // allow for autoresolving a Symfony Session
+        $interface = '\\Symfony\\Component\\HttpFoundation\\Session\\SessionInterface';
+        $class = '\\Symfony\\Component\\HttpFoundation\\Session\\Session';
+
+        $this->app->bind($interface, $class);
+    }
 }
