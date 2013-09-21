@@ -1,6 +1,7 @@
 <?php namespace hannesvdvreken\OAuth;
 
 use Illuminate\Support\ServiceProvider;
+use \App;
 
 class OAuthServiceProvider extends ServiceProvider {
 
@@ -12,9 +13,19 @@ class OAuthServiceProvider extends ServiceProvider {
     public function register()
     {
         // bind object for OAuth Facade
-        $this->app->bind('oauth', function()
+        $this->app->bind('oauth', function($app)
         {
-            $this->app->make('OAuth');
+            return $app->make('\\hannesvdvreken\\OAuth\\OAuth');
+        });
+
+        // bind object for App::make('credentials')
+        $this->app->bind('\\OAuth\\Common\\Consumer\\Credentials', function($app, $parameters)
+        {
+            return new \OAuth\Common\Consumer\Credentials(
+                $parameters['consumerId'],
+                $parameters['consumerSecret'],
+                $parameters['callbackUrl']
+            );
         });
 
         // allow for autoresolving a Symfony Session

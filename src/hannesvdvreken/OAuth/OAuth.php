@@ -59,9 +59,9 @@ class OAuth
         // create credentials object
         // the only "new"-keyword in this repository.
         $credentials = App::make('\\OAuth\\Common\\Consumer\\Credentials', array(
-            Config::get("oauth.consumers.$service.client_id"),
-            Config::get("oauth.consumers.$service.client_secret"),
-            $url ?: URL::current()
+            'consumerId'     => Config::get("oauth.consumers.$service.client_id"),
+            'consumerSecret' => Config::get("oauth.consumers.$service.client_secret"),
+            'callbackUrl' => $url ?: URL::current()
         ));
 
         // get scope (default to empty array)

@@ -47,8 +47,10 @@ return array(
 );
 ```
 
-The `Storage` attribute is optional and defaults to `Session`. Other [options](https://github.com/Lusitanian/PHPoAuthLib/tree/master/src/OAuth/Common/Storage).
+The `Storage` attribute is optional and defaults to `Session`. Other options: `Memory`, `Redis` or `SymfonySession`. More info [here](https://github.com/Lusitanian/PHPoAuthLib/tree/master/src/OAuth/Common/Storage).
 
-### License
+## License
+License: MIT
 
-Thanks for your support. License: [agplv3](http://www.gnu.org/licenses/agpl.html).
+## Like and share
+Thanks for your support. Feel free to star this repo and share with friends.

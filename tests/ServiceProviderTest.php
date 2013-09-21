@@ -24,6 +24,9 @@ class ServiceProviderTest extends PHPUnit_Framework_TestCase
             ->with('oauth', m::type('callable'));
 
         $app->shouldReceive('bind')
+            ->with('\\OAuth\\Common\\Consumer\\Credentials', m::type('callable'));
+
+        $app->shouldReceive('bind')
             ->with($interface, $class);
         
         $service_provider = new OAuthServiceProvider($app);

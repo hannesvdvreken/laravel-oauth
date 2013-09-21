@@ -30,9 +30,7 @@ class OAuthTest extends PHPUnit_Framework_TestCase
     public function tearDown()
     {
         // clear cached instances
-        Facade::clearResolvedInstance('app');
-        Facade::clearResolvedInstance('config');
-        Facade::clearResolvedInstance('url');
+        Facade::clearResolvedInstances();
         m::close();
     }
 
@@ -99,9 +97,9 @@ class OAuthTest extends PHPUnit_Framework_TestCase
         // arrange
         $storage = $this->storage;
         $credentials = array(
-            $this->client_id,
-            $this->client_secret,
-            $this->url
+            'consumerId'     => $this->client_id,
+            'consumerSecret' => $this->client_secret,
+            'callbackUrl'    => $this->url,
         );
 
         // credentials mock
