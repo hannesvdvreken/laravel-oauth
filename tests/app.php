@@ -6,7 +6,7 @@
  */
 
 // fake App class
-class FakeApp extends ArrayObject 
+class FakeApp extends ArrayObject
 {
 }
 
