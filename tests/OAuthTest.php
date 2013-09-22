@@ -118,7 +118,7 @@ class OAuthTest extends PHPUnit_Framework_TestCase
                  ->andReturn($this->credentials_mock);
 
         $app_mock->shouldReceive('make')
-                 ->with('\\OAuth\\Common\\Storage\\LaravelSession')
+                 ->with('\\hannesvdvreken\\OAuth\\Storage\\LaravelSession')
                  ->andReturn($this->storage_mock);
 
         return $app_mock;
