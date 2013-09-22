@@ -41,7 +41,7 @@ class OAuth
             'callbackUrl' => $url ?: URL::current()
         ));
 
-        $storage = App::make('\\OAuth\\Common\\Storage\\LaravelSession');
+        $storage = App::make('\\hannesvdvreken\\OAuth\\Storage\\LaravelSession');
 
         // get scope (default to empty array)
         $scope = Config::get("oauth.consumers.$service.scope", array());
