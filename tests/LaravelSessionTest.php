@@ -5,8 +5,7 @@
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  */
 
-require_once __DIR__.'/../vendor/autoload.php';
-require_once('tests/app.php');
+require_once 'app.php';
 
 use hannesvdvreken\OAuth\Storage\LaravelSession;
 use OAuth\OAuth2\Token\StdOAuth2Token;
