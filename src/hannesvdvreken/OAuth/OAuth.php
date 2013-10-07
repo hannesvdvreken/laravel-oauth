@@ -13,7 +13,7 @@ use \Config;
 use \URL;
 use \App;
 
-class OAuth 
+class OAuth
 {
     private $factory;
 
@@ -29,22 +29,27 @@ class OAuth
 
     /**
      * @param  string $service
+     * @param  string $url
+     * @param  array  $scope
      * @return \OAuth\Common\Service\AbstractService
      */
-    public function consumer($service, $url = null) 
+    public function consumer($service, $url = null, $scope = null)
     {
         // create credentials object
-        // the only "new"-keyword in this repository.
         $credentials = App::make('\\OAuth\\Common\\Consumer\\Credentials', array(
             'consumerId'     => Config::get("oauth.consumers.$service.client_id"),
             'consumerSecret' => Config::get("oauth.consumers.$service.client_secret"),
-            'callbackUrl' => $url ?: URL::current()
+            'callbackUrl'    => $url ?: URL::current()
         ));
 
+        // create storage object
         $storage = App::make('\\hannesvdvreken\\OAuth\\Storage\\LaravelSession');
 
-        // get scope (default to empty array)
-        $scope = Config::get("oauth.consumers.$service.scope", array());
+        // use scope from config if not provided
+        if (is_null($scope))
+        {
+            $scope = Config::get("oauth.consumers.$service.scope", array());
+        }
 
         // return the service consumer object
         return $this->factory->createService($service, $credentials, $storage, $scope);
