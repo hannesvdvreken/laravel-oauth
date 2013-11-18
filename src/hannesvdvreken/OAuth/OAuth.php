@@ -25,6 +25,13 @@ class OAuth
     public function __construct(ServiceFactory $factory)
     {
         $this->factory = $factory;
+
+        // use specific http client
+        if (Config::has('oauth.client'))
+        {
+            $class = Config::get('oauth.client');
+            $this->factory->setHttpClient(App::make("\\OAuth\\Common\\Http\\Client\\$class"));
+        }
     }
 
     /**
