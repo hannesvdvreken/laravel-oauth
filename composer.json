@@ -1,6 +1,6 @@
 {
     "name": "hannesvdvreken/oauth",
-    "version": "0.1.0",
+    "version": "0.0.4",
     "type": "library",
     "description": "Laravel OAuth IoC wrapper Library",
     "keywords": ["OAuth", "Lusitanian", "laravel", "php", "wrapper", "config"],
