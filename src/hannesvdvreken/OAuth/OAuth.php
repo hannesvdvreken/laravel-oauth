@@ -28,11 +28,13 @@ class OAuth
         $this->factory = $factory;
 
         // you can choose the http client through configuration
-        $class = Config::get('oauth.client', 'StreamClient');
-        $httpClient = App::make('\OAuth\Common\Http\Client\\' . $class);
+        if (Config::has('oauth.client'))
+        {
+            $httpClient = App::make('\OAuth\Common\Http\Client\\' . Config::get('oauth.client'));
 
-        // hey factory, use this HTTP client
-        $this->factory->setHttpClient($httpClient);
+            // hey factory, use this HTTP client
+            $this->factory->setHttpClient($httpClient);
+        }
     }
 
     /**

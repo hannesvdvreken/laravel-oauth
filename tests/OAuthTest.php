@@ -84,8 +84,11 @@ class OAuthTest extends PHPUnit_Framework_TestCase
         $config->shouldReceive('get')
                ->with("oauth.consumers.$service.scope", array())
                ->andReturn(array());
+        $config->shouldReceive('has')
+               ->with('oauth.client')
+               ->andReturn(true);
         $config->shouldReceive('get')
-               ->with('oauth.client', 'StreamClient')
+               ->with('oauth.client')
                ->andReturn('StreamClient');
 
         return $config;
@@ -112,7 +115,7 @@ class OAuthTest extends PHPUnit_Framework_TestCase
 
         // storage mock
         $this->storage_mock = m::mock('\OAuth\Common\Storage\TokenStorageInterface');
-        $this->client_mock = m::mock('\OAuth\Common\Http\Client\ClientInterface.php');
+        $this->client_mock = m::mock('\OAuth\Common\Http\Client\ClientInterface');
 
         // app mock
         $app_mock = m::mock('\Illuminate\Container\Container');
@@ -138,6 +141,10 @@ class OAuthTest extends PHPUnit_Framework_TestCase
     protected function mock_factory()
     {
         $factory_mock = m::mock('OAuth\ServiceFactory');
+
+        $factory_mock->shouldReceive('setHttpClient')
+                     ->with($this->client_mock);
+
         $factory_mock->shouldReceive('createService')
                      ->with($this->service, $this->credentials_mock, $this->storage_mock, $this->scope);
 
