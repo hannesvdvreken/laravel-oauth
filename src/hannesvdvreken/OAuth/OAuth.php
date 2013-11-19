@@ -24,7 +24,15 @@ class OAuth
      */
     public function __construct(ServiceFactory $factory)
     {
+        // assign injected dependencies
         $this->factory = $factory;
+
+        // you can choose the http client through configuration
+        $class = Config::get('oauth.client', 'StreamClient');
+        $httpClient = App::make('\OAuth\Common\Http\Client\\' . $class);
+
+        // hey factory, use this HTTP client
+        $this->factory->setHttpClient($httpClient);
     }
 
     /**

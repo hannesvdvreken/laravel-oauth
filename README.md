@@ -35,6 +35,11 @@ Add your credentials to app/config/oauth.php
 ```php
 return array(
 
+	/**
+	 * One of 'StreamClient' or 'CurlClient'. Defaults to 'StreamClient' if not provided.
+	 */
+	'client' => 'StreamClient',
+
     'consumers' => array(
         'Facebook' => array(
             'client_id'     => '',

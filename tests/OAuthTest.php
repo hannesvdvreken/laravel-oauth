@@ -13,14 +13,14 @@ use Illuminate\support\Facades\Facade;
 
 class OAuthTest extends PHPUnit_Framework_TestCase
 {
-    private $app,
-            $url = 'http://example.org/redirect',
-            $service = 'Facebook',
-            $client_id = 'client_id',
-            $client_secret = 'client_secret',
-            $credentials_mock,
-            $storage_mock,
-            $scope;
+    private $app;
+    private $url = 'http://example.org/redirect';
+    private $service = 'Facebook';
+    private $client_id = 'client_id';
+    private $client_secret = 'client_secret';
+    private $credentials_mock;
+    private $storage_mock;
+    private $scope;
 
     public function setUp()
     {
@@ -84,6 +84,9 @@ class OAuthTest extends PHPUnit_Framework_TestCase
         $config->shouldReceive('get')
                ->with("oauth.consumers.$service.scope", array())
                ->andReturn(array());
+        $config->shouldReceive('get')
+               ->with('oauth.client', 'StreamClient')
+               ->andReturn('StreamClient');
 
         return $config;
     }
