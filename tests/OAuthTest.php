@@ -52,7 +52,7 @@ class OAuthTest extends PHPUnit_Framework_TestCase
     public function testDefaultURL()
     {
         // mock url
-        $url_mock = m::mock('Illuminate\\Routing\\UrlGenerator');
+        $url_mock = m::mock('Illuminate\Routing\UrlGenerator');
         $url_mock->shouldReceive('current')->andReturn($this->url);
         $this->app['url'] = $url_mock;
 
@@ -74,7 +74,7 @@ class OAuthTest extends PHPUnit_Framework_TestCase
     {
         $service = $this->service;
 
-        $config = m::mock('Illuminate\\Config\\Repository');
+        $config = m::mock('Illuminate\Config\Repository');
         $config->shouldReceive('get')
                ->with("oauth.consumers.$service.client_id")
                ->andReturn($this->client_id);
@@ -105,23 +105,28 @@ class OAuthTest extends PHPUnit_Framework_TestCase
         );
 
         // credentials mock
-        $this->credentials_mock = m::mock('\\OAuth\\Common\\Consumer\\Credentials');
+        $this->credentials_mock = m::mock('\OAuth\Common\Consumer\Credentials');
         $this->credentials_mock->shouldReceive('getCallbackUrl')->andReturn($this->url);
         $this->credentials_mock->shouldReceive('getConsumerId')->andReturn($this->client_id);
         $this->credentials_mock->shouldReceive('getConsumerSecret')->andReturn($this->client_secret);
 
         // storage mock
-        $this->storage_mock = m::mock('\\OAuth\\Common\\Storage\\TokenStorageInterface');
+        $this->storage_mock = m::mock('\OAuth\Common\Storage\TokenStorageInterface');
+        $this->client_mock = m::mock('\OAuth\Common\Http\Client\ClientInterface.php');
 
         // app mock
-        $app_mock = m::mock('\\Illuminate\\Container\\Container');
+        $app_mock = m::mock('\Illuminate\Container\Container');
         $app_mock->shouldReceive('make')
-                 ->with('\\OAuth\\Common\\Consumer\\Credentials', $credentials)
+                 ->with('\OAuth\Common\Consumer\Credentials', $credentials)
                  ->andReturn($this->credentials_mock);
 
         $app_mock->shouldReceive('make')
-                 ->with('\\hannesvdvreken\\OAuth\\Storage\\LaravelSession')
+                 ->with('\hannesvdvreken\OAuth\Storage\LaravelSession')
                  ->andReturn($this->storage_mock);
+
+        $app_mock->shouldReceive('make')
+                 ->with('\OAuth\Common\Http\Client\StreamClient')
+                 ->andReturn($this->client_mock);
 
         return $app_mock;
     }
@@ -132,7 +137,7 @@ class OAuthTest extends PHPUnit_Framework_TestCase
      */
     protected function mock_factory()
     {
-        $factory_mock = m::mock('OAuth\\ServiceFactory');
+        $factory_mock = m::mock('OAuth\ServiceFactory');
         $factory_mock->shouldReceive('createService')
                      ->with($this->service, $this->credentials_mock, $this->storage_mock, $this->scope);
 
