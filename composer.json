@@ -1,6 +1,5 @@
 {
     "name": "hannesvdvreken/oauth",
-    "version": "0.0.4",
     "type": "library",
     "description": "Laravel OAuth IoC wrapper Library",
     "keywords": ["OAuth", "Lusitanian", "laravel", "php", "wrapper", "config"],
@@ -17,14 +16,14 @@
         "lusitanian/oauth": "*"
     },
     "require-dev": {
-        "illuminate/support": "4.0.*",
+        "illuminate/support": "4.1.*",
+        "illuminate/session": "4.1.*",
         "mockery/mockery": "0.8.*"
     },
-
-    "require-all": true,
-    "minimum-stability" : "dev",
-    
     "autoload": {
-        "psr-0": { "hannesvdvreken\\OAuth\\": "src/" }
-    }
+        "psr-0": {
+            "hannesvdvreken\\OAuth\\": "src/"
+        }
+    },
+    "minimum-stability" : "dev"
 }

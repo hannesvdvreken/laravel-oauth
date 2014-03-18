@@ -9,16 +9,19 @@ namespace hannesvdvreken\OAuth\Storage;
 
 use OAuth\Common\Token\TokenInterface;
 use OAuth\Common\Storage\Exception\TokenNotFoundException;
+use OAuth\Common\Storage\Exception\AuthorizationStateNotFoundException;
 use OAuth\Common\Storage\TokenStorageInterface;
 use Illuminate\Support\Facades\Session;
 
 class LaravelSession implements TokenStorageInterface
 {
     private $sessionVariableName;
+    private $stateVariableName;
 
-    public function __construct($sessionVariableName = 'oauth_token')
+    public function __construct($sessionVariableName = 'oauth_token', $stateVariableName = 'oauth_state')
     {
         $this->sessionVariableName = $sessionVariableName;
+        $this->stateVariableName = $stateVariableName;
     }
 
     /**
@@ -96,6 +99,86 @@ class LaravelSession implements TokenStorageInterface
     public function clearAllTokens()
     {
         Session::forget($this->sessionVariableName);
+
+        // allow chaining
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function retrieveAuthorizationState($service)
+    {
+        if ($this->hasAuthorizationState($service)) {
+            // get from session
+            $states = Session::get($this->stateVariableName);
+
+            // one item
+            return $states[$service];
+        }
+
+        throw new AuthorizationStateNotFoundException('State not found in session, are you sure you stored it?');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function storeAuthorizationState($service, $state)
+    {
+        // get previously saved tokens
+        $states = Session::get($this->stateVariableName);
+
+        if (!is_array($states)) {
+            $states = array();
+        }
+
+        $states[$service] = $state;
+
+        // save
+        Session::put($this->stateVariableName, $states);
+
+        // allow chaining
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function hasAuthorizationState($service)
+    {
+        // get from session
+        $states = Session::get($this->stateVariableName);
+
+        return is_array($states)
+        && isset($states[$service])
+        && null !== $states[$service];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function clearAuthorizationState($service)
+    {
+        // get previously saved tokens
+        $states = Session::get($this->stateVariableName);
+
+        if (is_array($states) && array_key_exists($service, $states)) {
+            unset($states[$service]);
+
+            // Replace the stored tokens array
+            Session::put($this->stateVariableName, $states);
+        }
+
+        // allow chaining
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function clearAllAuthorizationStates()
+    {
+        Session::forget($this->stateVariableName);
 
         // allow chaining
         return $this;
