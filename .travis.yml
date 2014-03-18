@@ -1,16 +1,13 @@
 language: php
 
-branches:
-  only:
-    - master
-
-php:
+php: 
   - 5.3
   - 5.4
   - 5.5
+  - hhvm
 
 before_script:
    - composer self-update
-   - composer install --dev
+   - composer install --prefer-source --dev
 
 script: phpunit
