@@ -1,6 +1,8 @@
 # OAuth wrapper for Laravel 4
 [![Build Status](https://travis-ci.org/hannesvdvreken/laravel-oauth.png?branch=master)](https://travis-ci.org/hannesvdvreken/laravel-oauth)
 
+**Suggestion:** This is just a Service Provider and with a Laravel Session class for token storage. If you would like to keep using Lusitanian's PHPoAuthLib, please use [`artdarek/oauth-4-laravel`](https://github.com/artdarek/oauth-4-laravel) by [Dariusz Prząda](https://github.com/artdarek). If you are interested in [Guzzle](http://guzzle.readthedocs.org/en/latest/)-based service classes, [**look here!**](https://github.com/hannesvdvreken/php-oauth)
+
 ## Usage
 
 Just follow the steps below and you will be able to get an object of the [service](https://github.com/Lusitanian/PHPoAuthLib/tree/master/src/OAuth/OAuth2/Service) class with one rule:
