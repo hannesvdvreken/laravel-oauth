@@ -25,5 +25,8 @@
             "hannesvdvreken\\OAuth\\": "src/"
         }
     },
+    "suggest": {
+        "hannesvdvreken/php-oauth": "A OAuth library built on top of the GuzzlePHP HTTP client"
+    },
     "minimum-stability" : "dev"
 }
