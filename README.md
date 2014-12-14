@@ -53,7 +53,7 @@ return array(
 ```
 
 ## License
-License: MIT
+[MIT](license)
 
 ## Like and share
 Thanks for your support. Feel free to star this repo and share with friends.
