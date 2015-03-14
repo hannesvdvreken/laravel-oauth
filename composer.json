@@ -8,7 +8,8 @@
     "authors": [
         {
             "name": "Hannes Van De Vreken",
-            "homepage": "https://hannesvdvreken.com"
+            "homepage": "https://hannesvdvreken.com",
+            "email": "vandevreken.hannes@gmail.com"
         }
     ],
     "require": {
